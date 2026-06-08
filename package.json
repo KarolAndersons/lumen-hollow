@@ -1,0 +1,20 @@
+{
+  "name": "lumen-hollow",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Lumen Hollow, Nightfall Wildlife Reserve. QHO431 Web Technologies coursework.",
+  "type": "module",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs",
+    "seed": "node db/seed.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "sqlite3": "^5.1.7"
+  }
+}
