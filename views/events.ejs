@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+
+<section class="page-intro">
+  <p class="page-intro__eyebrow">What’s on</p>
+  <h1 class="page-intro__title">Events programme</h1>
+  <p class="page-intro__lede">
+    From seasonal celebrations to one-evening lectures, our programme runs across the calendar.
+    Browse by year and category, past events stay listed for reference.
+  </p>
+</section>
+
+<section
+  class="events"
+  data-events
+  data-default-year="<%= selectedYear %>"
+  data-default-category="<%= selectedCategory || 'all' %>">
+  <div class="events__filters">
+    <div class="events__filter">
+      <label for="event-year">Year</label>
+      <select id="event-year" data-event-year>
+        <% years.forEach(function(y) { %>
+          <option value="<%= y %>" <%= y === selectedYear ? 'selected' : '' %>><%= y %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <fieldset class="events__categories" data-event-categories>
+      <legend>Category</legend>
+      <label class="events__category">
+        <input type="radio" name="category" value="all" <%= !selectedCategory ? 'checked' : '' %>>
+        <span>All</span>
+      </label>
+      <% categories.forEach(function(c) { %>
+        <label class="events__category">
+          <input type="radio" name="category" value="<%= c.slug %>" <%= selectedCategory === c.slug ? 'checked' : '' %>>
+          <span><%= c.name %></span>
+        </label>
+      <% }) %>
+    </fieldset>
+  </div>
+
+  <p class="events__status" data-events-status role="status" aria-live="polite">Loading events…</p>
+
+  <ul class="events__list" data-events-list></ul>
+</section>
+
+<%- include('partials/footer') %>

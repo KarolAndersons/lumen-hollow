@@ -1,0 +1,32 @@
+<%- include('partials/header') %>
+
+<section class="page-intro">
+  <p class="page-intro__eyebrow">The Reserve</p>
+  <h1 class="page-intro__title">Five habitats</h1>
+  <p class="page-intro__lede">
+    Each habitat at Lumen Hollow is built to mirror a real-world ecosystem at dusk or after dark.
+    Choose one to explore its exhibits, residents and experiences.
+  </p>
+</section>
+
+<ul class="habitat-cards">
+  <% habitats.forEach(function(h) { %>
+    <li class="habitat-card" style="--accent: <%= h.accent_colour %>">
+      <a href="/habitats/<%= h.slug %>" class="habitat-card__link">
+        <% if (h.image_filename) { %>
+          <span class="habitat-card__media" aria-hidden="true">
+            <img class="habitat-card__image" src="/images/habitats/<%= h.image_filename %>" alt="" loading="lazy">
+          </span>
+        <% } %>
+        <span class="habitat-card__body">
+          <h2 class="habitat-card__name"><%= h.name %></h2>
+          <p class="habitat-card__tagline"><%= h.tagline %></p>
+          <p class="habitat-card__description"><%= h.description %></p>
+          <span class="habitat-card__more">Explore the habitat &rarr;</span>
+        </span>
+      </a>
+    </li>
+  <% }) %>
+</ul>
+
+<%- include('partials/footer') %>

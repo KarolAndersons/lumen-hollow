@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+<section class="page-intro">
+  <p class="page-intro__eyebrow">Search</p>
+  <h1 class="page-intro__title">Results<%= query ? ` for “${query}”` : '' %></h1>
+  <p class="page-intro__lede">
+    Live results appear as you type. You can also keep typing in the box at the top of the page.
+  </p>
+</section>
+
+<form class="search-page__form" action="/search" method="get" role="search">
+  <label for="search-page-input" class="visually-hidden">Search</label>
+  <input
+    type="search"
+    id="search-page-input"
+    name="q"
+    value="<%= query %>"
+    placeholder="Habitats, species, events…"
+    autocomplete="off"
+    data-search-page-input>
+  <button type="submit" class="button button--primary">Search</button>
+</form>
+
+<div class="search-page__results" data-search-page-results aria-live="polite">
+  <% if (!query) { %>
+    <p>Start typing above to search the reserve.</p>
+  <% } %>
+</div>
+
+<%- include('partials/footer') %>

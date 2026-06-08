@@ -1,0 +1,28 @@
+<%- include('partials/header') %>
+
+<section class="page-intro">
+  <p class="page-intro__eyebrow">Help</p>
+  <h1 class="page-intro__title">Frequently asked questions</h1>
+  <p class="page-intro__lede">
+    Most of what visitors ask us before their first trip is below. If your question isn’t answered here,
+    please <a href="/contact">get in touch</a>.
+  </p>
+</section>
+
+<ul class="faq-list">
+  <% faqs.forEach(function(f, i) { %>
+    <li class="faq-item">
+      <details<%= i === 0 ? ' open' : '' %>>
+        <summary>
+          <span class="faq-item__question"><%= f.question %></span>
+          <span class="faq-item__icon" aria-hidden="true">+</span>
+        </summary>
+        <div class="faq-item__answer">
+          <p><%= f.answer %></p>
+        </div>
+      </details>
+    </li>
+  <% }) %>
+</ul>
+
+<%- include('partials/footer') %>

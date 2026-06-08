@@ -1,0 +1,120 @@
+<%- include('partials/header') %>
+
+<section class="hero">
+  <div class="hero__copy">
+    <p class="hero__eyebrow">Open every day · 9.00 am – 6.00 pm</p>
+    <h1 class="hero__title">A reserve that wakes at dusk.</h1>
+    <p class="hero__lede">
+      Lumen Hollow is built around the species that move when the lights go down.
+      Wander five habitats and meet the wildlife most visitors never see.
+    </p>
+    <p class="hero__instruction">Choose a habitat on the map to begin.</p>
+  </div>
+
+  <div class="park-map" data-park-map>
+    <svg viewBox="0 0 1000 600" class="park-map__svg" role="img" aria-labelledby="park-map-title park-map-desc">
+      <title id="park-map-title">Interactive map of Lumen Hollow</title>
+      <desc id="park-map-desc">Five habitats are arranged across the park grounds. Activate any habitat marker to read more about it.</desc>
+
+      <defs>
+        <radialGradient id="map-sky" cx="50%" cy="40%" r="70%">
+          <stop offset="0%" stop-color="#1a2540"></stop>
+          <stop offset="100%" stop-color="#070a18"></stop>
+        </radialGradient>
+        <pattern id="map-stars" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+          <circle cx="12" cy="22" r="0.6" fill="#cbd6e6" opacity="0.7"></circle>
+          <circle cx="62" cy="40" r="0.5" fill="#cbd6e6" opacity="0.4"></circle>
+          <circle cx="88" cy="80" r="0.7" fill="#cbd6e6" opacity="0.6"></circle>
+          <circle cx="35" cy="72" r="0.4" fill="#cbd6e6" opacity="0.3"></circle>
+        </pattern>
+      </defs>
+
+      <rect x="0" y="0" width="1000" height="600" fill="url(#map-sky)"></rect>
+      <rect x="0" y="0" width="1000" height="600" fill="url(#map-stars)" opacity="0.6"></rect>
+
+      <!-- Soft path between habitats -->
+      <path
+        d="M 220 180 Q 360 240 500 320 Q 640 380 700 420 M 500 320 Q 380 380 250 450 M 500 320 Q 640 270 760 200"
+        fill="none"
+        stroke="#3a4564"
+        stroke-width="2.5"
+        stroke-dasharray="2 8"
+        stroke-linecap="round"
+        opacity="0.7">
+      </path>
+
+      <% habitats.forEach(function(h) { %>
+        <a
+          href="/habitats/<%= h.slug %>"
+          class="park-map__marker"
+          data-habitat-slug="<%= h.slug %>"
+          data-habitat-name="<%= h.name %>"
+          data-accent="<%= h.accent_colour %>">
+          <circle cx="<%= h.map_x %>" cy="<%= h.map_y %>" r="44" fill="<%= h.accent_colour %>" opacity="0.12"></circle>
+          <circle cx="<%= h.map_x %>" cy="<%= h.map_y %>" r="28" fill="<%= h.accent_colour %>" opacity="0.25"></circle>
+          <circle cx="<%= h.map_x %>" cy="<%= h.map_y %>" r="14" fill="<%= h.accent_colour %>"></circle>
+          <text x="<%= h.map_x %>" y="<%= h.map_y + 72 %>" text-anchor="middle" class="park-map__label">
+            <%= h.name %>
+          </text>
+        </a>
+      <% }) %>
+    </svg>
+
+    <aside class="park-map__panel" data-park-map-panel aria-live="polite" hidden>
+      <button type="button" class="park-map__close" data-park-map-close aria-label="Close habitat preview">×</button>
+      <div class="park-map__panel-body" data-park-map-body>
+        <p class="park-map__loading">Loading…</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="habitats-strip">
+  <h2 class="section-heading">Five habitats, one twilight</h2>
+  <% const featured = habitats.find(function(h){ return h.is_featured === 1; }) || habitats[habitats.length - 1]; %>
+  <% const others = habitats.filter(function(h){ return h.slug !== featured.slug; }).slice(0, 4); %>
+  <ul class="habitats-grid">
+    <% others.forEach(function(h) { %>
+      <li class="habitat-tile habitat-tile--small" style="--accent: <%= h.accent_colour %>">
+        <a href="/habitats/<%= h.slug %>" class="habitat-tile__link">
+          <% if (h.image_filename) { %>
+            <img
+              class="habitat-tile__image"
+              src="/images/habitats/<%= h.image_filename %>"
+              alt="<%= h.image_alt || h.name %>"
+              loading="lazy">
+          <% } else { %>
+            <span class="habitat-tile__image habitat-tile__image--placeholder" aria-hidden="true"></span>
+          <% } %>
+          <span class="habitat-tile__shade" aria-hidden="true"></span>
+          <span class="habitat-tile__body">
+            <span class="habitat-tile__name"><%= h.name %></span>
+            <span class="habitat-tile__tagline"><%= h.tagline %></span>
+          </span>
+        </a>
+      </li>
+    <% }) %>
+    <li class="habitat-tile habitat-tile--featured" style="--accent: <%= featured.accent_colour %>">
+      <a href="/habitats/<%= featured.slug %>" class="habitat-tile__link">
+        <% if (featured.image_filename) { %>
+          <img
+            class="habitat-tile__image"
+            src="/images/habitats/<%= featured.image_filename %>"
+            alt="<%= featured.image_alt || featured.name %>"
+            loading="lazy">
+        <% } else { %>
+          <span class="habitat-tile__image habitat-tile__image--placeholder" aria-hidden="true"></span>
+        <% } %>
+        <span class="habitat-tile__shade" aria-hidden="true"></span>
+        <span class="habitat-tile__body">
+          <span class="habitat-tile__badge">Featured habitat</span>
+          <span class="habitat-tile__name habitat-tile__name--large"><%= featured.name %></span>
+          <span class="habitat-tile__tagline"><%= featured.tagline %></span>
+          <span class="habitat-tile__lede"><%= featured.description.split('. ')[0] %>.</span>
+        </span>
+      </a>
+    </li>
+  </ul>
+</section>
+
+<%- include('partials/footer') %>

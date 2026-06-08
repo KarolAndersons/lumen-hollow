@@ -1,0 +1,48 @@
+<%- include('partials/header') %>
+
+<article class="event-detail" <% if (event.accent_colour) { %>style="--accent: <%= event.accent_colour %>"<% } %>>
+  <p class="event-detail__eyebrow"><%= event.category_name %></p>
+  <h1 class="event-detail__title"><%= event.title %></h1>
+  <p class="event-detail__summary"><%= event.summary %></p>
+
+  <% if (hasOccurred) { %>
+    <p class="event-detail__status event-detail__status--past" role="status">
+      This event has already taken place.
+    </p>
+  <% } else if (isOngoing) { %>
+    <p class="event-detail__status event-detail__status--live" role="status">
+      Happening now.
+    </p>
+  <% } else { %>
+    <p class="event-detail__status event-detail__status--upcoming" role="status">
+      Upcoming.
+    </p>
+  <% } %>
+
+  <dl class="event-detail__meta">
+    <dt>Dates</dt>
+    <dd>
+      <% if (event.start_date === event.end_date) { %>
+        <time datetime="<%= event.start_date %>"><%= event.start_date %></time>
+      <% } else { %>
+        <time datetime="<%= event.start_date %>"><%= event.start_date %></time>
+        &ndash;
+        <time datetime="<%= event.end_date %>"><%= event.end_date %></time>
+      <% } %>
+    </dd>
+    <% if (event.habitat_slug) { %>
+      <dt>Habitat</dt>
+      <dd><a href="/habitats/<%= event.habitat_slug %>"><%= event.habitat_name %></a></dd>
+    <% } %>
+    <dt>Category</dt>
+    <dd><%= event.category_name %></dd>
+  </dl>
+
+  <div class="event-detail__body">
+    <p><%= event.description %></p>
+  </div>
+
+  <a class="event-detail__back" href="/events">&larr; Back to events</a>
+</article>
+
+<%- include('partials/footer') %>

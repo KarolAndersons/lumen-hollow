@@ -1,0 +1,81 @@
+<%- include('partials/header') %>
+
+<article class="habitat" style="--accent: <%= habitat.accent_colour %>">
+  <header class="habitat__header">
+    <p class="habitat__eyebrow">Habitat</p>
+    <h1 class="habitat__title"><%= habitat.name %></h1>
+    <p class="habitat__tagline"><%= habitat.tagline %></p>
+
+    <figure class="habitat__hero">
+      <% if (habitat.image_filename) { %>
+        <img
+          class="habitat__hero-image"
+          src="/images/habitats/<%= habitat.image_filename %>"
+          alt="<%= habitat.image_alt || habitat.name %>">
+      <% } else { %>
+        <div class="habitat__diorama" aria-hidden="true">
+          <span class="habitat__layer habitat__layer--back"></span>
+          <span class="habitat__layer habitat__layer--mid"></span>
+          <span class="habitat__layer habitat__layer--front"></span>
+        </div>
+      <% } %>
+      <% if (habitat.image_credit) { %>
+        <figcaption class="habitat__hero-credit">
+          <a href="<%= habitat.image_source_url %>" rel="noopener noreferrer" target="_blank"><%= habitat.image_credit %></a>
+        </figcaption>
+      <% } %>
+    </figure>
+  </header>
+
+  <section class="habitat__description">
+    <p><%= habitat.description %></p>
+  </section>
+
+  <section class="habitat__exhibits">
+    <h2 class="section-heading">Exhibits &amp; experiences</h2>
+    <ul class="exhibit-list">
+      <% exhibits.forEach(function(e) { %>
+        <li class="exhibit" data-kind="<%= e.kind %>" id="<%= e.slug %>">
+          <% if (e.image_filename) { %>
+            <figure class="exhibit__media">
+              <img
+                class="exhibit__image"
+                src="/images/exhibits/<%= e.image_filename %>"
+                alt="<%= e.image_alt || e.name %>"
+                loading="lazy">
+              <% if (e.image_credit) { %>
+                <figcaption class="exhibit__credit">
+                  <a href="<%= e.image_source_url %>" rel="noopener noreferrer" target="_blank"><%= e.image_credit %></a>
+                </figcaption>
+              <% } %>
+            </figure>
+          <% } %>
+          <div class="exhibit__body">
+            <div class="exhibit__kind"><%= e.kind %></div>
+            <h3 class="exhibit__name"><%= e.name %></h3>
+            <% if (e.species_common) { %>
+              <p class="exhibit__species">
+                <span class="exhibit__species-common"><%= e.species_common %></span>
+                <% if (e.species_scientific) { %>
+                  <span class="exhibit__species-scientific"><em><%= e.species_scientific %></em></span>
+                <% } %>
+                <% if (e.iucn_status) { %>
+                  <span class="exhibit__iucn iucn--<%= e.iucn_status.toLowerCase().replace(/\s+/g, '-') %>">
+                    IUCN: <%= e.iucn_status %>
+                  </span>
+                <% } %>
+              </p>
+            <% } %>
+            <p class="exhibit__description"><%= e.description %></p>
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+
+  <nav class="habitat__pagination" aria-label="Other habitats">
+    <a href="/habitats">&larr; All habitats</a>
+  </nav>
+</article>
+
+<%- include('partials/footer') %>

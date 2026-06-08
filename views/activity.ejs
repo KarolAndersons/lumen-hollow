@@ -1,0 +1,41 @@
+<%- include('partials/header') %>
+
+<section class="page-intro">
+  <p class="page-intro__eyebrow">For younger visitors</p>
+  <h1 class="page-intro__title">Spot the nocturnal creature</h1>
+  <p class="page-intro__lede">
+    Drag your finger or move your mouse over the dark glass to reveal a hidden animal,
+    then choose which one it is. New creature every round.
+  </p>
+</section>
+
+<div
+  class="activity"
+  data-activity
+  data-creatures='<%- JSON.stringify(creatures) %>'>
+  <div class="activity__board">
+    <div class="activity__creature" data-activity-creature>
+      <p class="activity__creature-name" data-activity-name></p>
+      <p class="activity__creature-habitat" data-activity-habitat></p>
+    </div>
+    <canvas class="activity__canvas" data-activity-canvas width="800" height="450" aria-label="Scratch-off panel hiding a nocturnal animal"></canvas>
+    <p class="activity__hint" data-activity-hint>Move your mouse or finger over the dark panel to reveal the animal.</p>
+  </div>
+
+  <div class="activity__guess" data-activity-guess hidden>
+    <h2>Which animal is this?</h2>
+    <ul class="activity__options" data-activity-options></ul>
+  </div>
+
+  <div class="activity__feedback" data-activity-feedback role="status" aria-live="polite"></div>
+
+  <div class="activity__score">
+    <p>Round: <span data-activity-round>1</span></p>
+    <p>Score: <span data-activity-score>0</span></p>
+    <button type="button" class="button button--ghost" data-activity-reset>Start again</button>
+  </div>
+</div>
+
+<script src="/js/activity.js"></script>
+
+<%- include('partials/footer') %>
