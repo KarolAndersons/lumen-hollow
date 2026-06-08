@@ -33,12 +33,12 @@
           <span class="site-nav__bars" aria-hidden="true"></span>
         </button>
         <ul class="site-nav__list" id="site-nav-list">
-          <li><a href="/" <%= currentPath === '/' ? 'aria-current="page"' : '' %>>Map</a></li>
-          <li><a href="/habitats" <%= currentPath.startsWith('/habitats') ? 'aria-current="page"' : '' %>>Habitats</a></li>
-          <li><a href="/events" <%= currentPath.startsWith('/events') ? 'aria-current="page"' : '' %>>Events</a></li>
-          <li><a href="/activity" <%= currentPath.startsWith('/activity') ? 'aria-current="page"' : '' %>>Activity</a></li>
-          <li><a href="/faq" <%= currentPath.startsWith('/faq') ? 'aria-current="page"' : '' %>>FAQ</a></li>
-          <li><a href="/contact" <%= currentPath.startsWith('/contact') ? 'aria-current="page"' : '' %>>Contact</a></li>
+          <li><a href="/"<% if (currentPath === '/') { %> aria-current="page"<% } %>>Map</a></li>
+          <li><a href="/habitats"<% if (currentPath.startsWith('/habitats')) { %> aria-current="page"<% } %>>Habitats</a></li>
+          <li><a href="/events"<% if (currentPath.startsWith('/events')) { %> aria-current="page"<% } %>>Events</a></li>
+          <li><a href="/activity"<% if (currentPath.startsWith('/activity')) { %> aria-current="page"<% } %>>Activity</a></li>
+          <li><a href="/faq"<% if (currentPath.startsWith('/faq')) { %> aria-current="page"<% } %>>FAQ</a></li>
+          <li><a href="/contact"<% if (currentPath.startsWith('/contact')) { %> aria-current="page"<% } %>>Contact</a></li>
         </ul>
       </nav>
 

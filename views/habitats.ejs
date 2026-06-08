@@ -14,16 +14,16 @@
     <li class="habitat-card" style="--accent: <%= h.accent_colour %>">
       <a href="/habitats/<%= h.slug %>" class="habitat-card__link">
         <% if (h.image_filename) { %>
-          <span class="habitat-card__media" aria-hidden="true">
+          <div class="habitat-card__media" aria-hidden="true">
             <img class="habitat-card__image" src="/images/habitats/<%= h.image_filename %>" alt="" loading="lazy">
-          </span>
+          </div>
         <% } %>
-        <span class="habitat-card__body">
+        <div class="habitat-card__body">
           <h2 class="habitat-card__name"><%= h.name %></h2>
           <p class="habitat-card__tagline"><%= h.tagline %></p>
           <p class="habitat-card__description"><%= h.description %></p>
           <span class="habitat-card__more">Explore the habitat &rarr;</span>
-        </span>
+        </div>
       </a>
     </li>
   <% }) %>
